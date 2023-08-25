@@ -57,6 +57,7 @@ To inject dependencies, use `@Inject`, like this:
 ```swift
 @Singleton private var repository: Repository
 ```
+View models can be injected by `ViewModel()`, like this:
 ```swift
 @StateObject private var viewModel: ArtListViewModel = ViewModel()
 ```
