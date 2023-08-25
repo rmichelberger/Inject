@@ -23,7 +23,7 @@ or you can add the following dependency to your `Package.swift`:
 
 ## Usage
 
-Define the dependencies for the project:
+### 1. Define the dependencies for the project:
 
 ```swift
 func Dependencies() {    
@@ -45,8 +45,17 @@ func Dependencies() {
 }
 ```
 
+Initialize dependencies on app start:
+```swift
+@main
+struct MyApp: App {
+    
+    init() {
+        Dependencies()
+    }
+```
 
-To inject dependencies, use `@Inject`:
+### 2. To inject dependencies, use `@Inject`:
 
 ```swift
 @Inject private var useCase: UseCase
