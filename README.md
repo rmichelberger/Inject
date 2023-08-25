@@ -23,7 +23,7 @@ or you can add the following dependency to your `Package.swift`:
 
 ## Usage
 
-Define the dependencies needed in the project:
+Define the dependencies for the project:
 
 ```swift
 func Dependencies() {    
@@ -46,7 +46,7 @@ func Dependencies() {
 ```
 
 
-To inject dependencies, use `@Inject`, like this:
+To inject dependencies, use `@Inject`:
 
 ```swift
 @Inject private var useCase: UseCase
@@ -54,10 +54,11 @@ To inject dependencies, use `@Inject`, like this:
 ```swift
 @Inject private var apiService: ApiService
 ```
+For singelton dependency use `@Singleton`:
 ```swift
 @Singleton private var repository: Repository
 ```
-View models can be injected by `ViewModel()`, like this:
+View models can be injected by `ViewModel()`:
 ```swift
 @StateObject private var viewModel: ArtListViewModel = ViewModel()
 ```
