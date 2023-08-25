@@ -2,31 +2,26 @@
 public struct Inject<T> {
     public private(set) var wrappedValue: T
     
-    public init(_ keyPath: KeyPath<Dependencies, T>) {
-        wrappedValue = Dependencies[keyPath]
-    }
-}
-    
-public struct Dependencies {
-    private static let dependencies = Dependencies()
-    
-    fileprivate static subscript<T>(_ keyPath: KeyPath<Dependencies, T>) -> T {
-        get { dependencies[keyPath: keyPath] }
+    public init() {
+        let key = String(describing: T.self)
+        guard let provider = Provider.container[key] as? () -> T else {
+            preconditionFailure("@Provides for \(String(describing: T.self)) is missing")
+        }
+        wrappedValue = provider()
     }
 }
 
-//@propertyWrapper
-//public struct Provides<T> {
-//    public private(set) var wrappedValue: () -> T
-//
-//    public init(wrappedValue: @escaping () -> T) {
-//        let key = String(describing: T.self)
-//        Provider.container[key] = wrappedValue
-//        self.wrappedValue = wrappedValue
-//        print(key)
-//    }
-//}
-//
-//fileprivate struct Provider {
-//    static var container = [String: Any]()
-//}
+@propertyWrapper
+public struct Provides<T> {
+    public private(set) var wrappedValue: () -> T
+
+    public init(wrappedValue: @escaping () -> T) {
+        let key = String(describing: T.self)
+        Provider.container[key] = wrappedValue
+        self.wrappedValue = wrappedValue
+    }
+}
+
+fileprivate struct Provider {
+    static var container = [String: Any]()
+}
