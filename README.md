@@ -46,15 +46,21 @@ func Dependencies() {
 ```
 
 
-To inject dependencies, use @Inject, like this:
+To inject dependencies, use `@Inject`, like this:
 
 ```swift
 @Inject private var useCase: UseCase
-...
+```
+```swift
 @Inject private var apiService: ApiService
-...
+```
+```swift
 @Singleton private var repository: Repository
 ```
+```swift
+@StateObject private var viewModel: ArtListViewModel = ViewModel()
+```
+
 
 Inspired by [hilt](https://dagger.dev/hilt/).
 
