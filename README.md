@@ -123,7 +123,7 @@ View models can be injected by `ViewModel()`:
 
 ## TODO
 
-Improve unit test coverage.
+- [ ] Improve unit test coverage.
 
 ## Contributing
 
