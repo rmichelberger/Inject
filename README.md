@@ -23,8 +23,17 @@ or you can add the following dependency to your `Package.swift`:
 
 ## Usage
 
-### 1. Define the dependencies for the project:
+### 1. Dependencies 
 
+You need to define the providers for each dependency in the project.
+
+Signature of `@Provides`:
+
+```swift
+@Provides var dependency: () -> Dependency = { Dependency() }
+```
+
+Example:
 ```swift
 func Dependencies() {    
     @Provides var apiService = { ApiService() }
@@ -45,6 +54,7 @@ func Dependencies() {
 }
 ```
 
+
 Initialize dependencies on app start:
 ```swift
 @main
@@ -55,23 +65,46 @@ struct MyApp: App {
     }
 ```
 
-### 2. To inject dependencies, use `@Inject`:
+### 2. Inject
+
+To inject dependencies, use `@Inject`:
 
 ```swift
-@Inject private var useCase: UseCase
+@Inject private var dependency: Dependency
 ```
+Example:
 ```swift
-@Inject private var apiService: ApiService
+
+final class RepositoryImpl: Repository {
+    @Inject private var apiService: ApiService
+
+    func getArtList() async throws -> [ArtData] {
+        try await apiService.getArtList().data
+    }
+    
+    func getArtDetail(id: Int) async throws -> ArtDetailData {
+        try await apiService.getArtDetail(id: id).data
+    }
+}
 ```
+
+#### Singleton
 For singelton dependency use `@Singleton`:
 ```swift
 @Singleton private var repository: Repository
 ```
+#### View models
+
 View models can be injected by `ViewModel()`:
 ```swift
 @StateObject private var viewModel: ArtListViewModel = ViewModel()
 ```
+#### Overview
 
+ Define | Inject | Scope
+ --- | --- | ---
+ `@Provide` | `@Inject` | Lifecycle is defined in the provider function
+ `@Singleton` | `@Singleton` | App lifecycle
 
 Inspired by [hilt](https://dagger.dev/hilt/).
 
