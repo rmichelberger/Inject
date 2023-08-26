@@ -120,6 +120,17 @@ View models can be injected by `ViewModel()`:
  `@Provide` | `@Inject` | Lifecycle is defined in the provider function
  `@Singleton` | `@Singleton` | App lifecycle
 
+
+## TODO
+
+Improve unit test coverage.
+
+## Contributing
+
+We always appreciate contributions from the community.
+Please make sure to cover your changes with unit tests.
+
+#
 Inspired by [hilt](https://dagger.dev/hilt/).
 
 
