@@ -32,10 +32,24 @@ Signature of `@Provides`:
 ```swift
 @Provides var dependency: () -> Dependency = { Dependency() }
 ```
+The provider function will be called, each time the dependency is injected.
 
-Example:
+#### Singleton
+Signature of `@Singleton`:
 ```swift
-func Dependencies() {    
+@Singleton var signleton: Singleton = Singleton()
+```
+An instance of the singleton is stored, and this instance is provided each time it is injected.
+
+Example: 
+```swift
+@Singleton var repository: Repository = RepositoryImpl()
+```
+
+Example for defining the project dependencies:
+```swift
+func Dependencies() {
+
     @Provides var apiService = { ApiService() }
     @Provides var retroSwift = {
         let logger = SimpleLogger()
@@ -54,8 +68,7 @@ func Dependencies() {
 }
 ```
 
-
-Initialize dependencies on app start:
+Don't forget to initialize the dependencies on app start:
 ```swift
 @main
 struct MyApp: App {
@@ -76,6 +89,7 @@ Example:
 ```swift
 
 final class RepositoryImpl: Repository {
+
     @Inject private var apiService: ApiService
 
     func getArtList() async throws -> [ArtData] {
