@@ -6,7 +6,7 @@ import PackageDescription
 
 let package = Package(
     name: "Inject",
-    platforms: [.macOS(.v10_14), .iOS(.v13), .tvOS(.v13), .watchOS(.v8)],
+    platforms: [.macOS(.v10_15), .iOS(.v13), .tvOS(.v13), .watchOS(.v8)],
     products: [.library(name: "Inject", targets: ["Inject"]),],
     targets: [
         .target(name: "Inject"),
